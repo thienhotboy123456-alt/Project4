@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 28px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            margin-bottom: 14px;
+            text-align: center;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #1877f2;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #166fe5;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #1877f2;
+            border: 1px solid #e4e6eb;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f2f3f5;
+        }
+
+        .status-msg {
+            display: none;
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>ĐĂNG NHẬP</h2>
+        
+        <!-- Sử dụng sự kiện onclick để xử lý mở popup -->
+        <button onclick="openLoginPopup()" class="btn btn-primary">Đăng nhập tài khoản</button>
+        
+        <button onclick="goToGuestView()" class="btn btn-secondary">Đăng nhập tài khoản khách</button>
+
+	<button onclick="goToDrawing()" class="btn btn-secondary">Shop drawing</button>
+
+        <div id="status" class="status-msg">Vui lòng hoàn tất đăng nhập ở cửa sổ vừa hiện ra...</div>
+    </div>
+
+    <script>
+        function openLoginPopup() {
+            // Link file Excel OneDrive của bạn
+            const excelFileUrl = "https://1drv.ms/x/c/B3B52283BAD44A76/AbNd8c6zSRRBv38Xs4SHIi4?e=3gj9th";
+            
+            // Hiển thị dòng trạng thái nhắc nhở
+            document.getElementById("status").style.display = "block";
+
+            // Cấu hình kích thước và mở cửa sổ đăng nhập Microsoft nhỏ (Popup)
+            const width = 500;
+            const height = 600;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+            
+            const loginWindow = window.open(
+                "https://login.live.com/", 
+               
+                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+            );
+
+            // Kiểm tra liên tục mỗi 1 giây xem người dùng đã tương tác xong và tắt cửa sổ chưa
+            const timer = setInterval(function() {
+                if (loginWindow.closed) {
+                    clearInterval(timer); // Dừng kiểm tra khi cửa sổ đóng
+                    document.getElementById("status").innerText = "Đang chuyển hướng tới file Excel...";
+                    
+                    // Chuyển hướng trang hiện tại sang link file Excel của bạn
+                    window.location.href = excelFileUrl;
+                }
+            }, 1000); // 1000ms = 1 giây
+        }
+            let history = JSON.parse(localStorage.getItem('login_history')) || [];
+            history.unshift({ account: emailValue, time: new Date().toLocaleString('vi-VN') });
+            localStorage.setItem('login_history', JSON.stringify(history));
+
+        function goToGuestView() {
+            // Link chuyển hướng với tư cách khách
+            window.location.href = "https://1drv.ms/x/c/b3b52283bad44a76/IQCzXfHOs0kUQb9_F7OEhyIuAZ4HUu6AG1rPoYgcxFkT5lI?e=j6cbip";
+        }
+
+        function goToDrawing() {
+            // Link chuyển hướng với tư cách khách
+            window.location.href = "https://1drv.ms/b/c/b3b52283bad44a76/IQDaIEfZWS_5TJ054VPlC23MAWvTXkfL_Ins8TNSzo5NRUs?e=Qg8xFm";
+        }
+
+    </script>
+
+</body>
+</html>
